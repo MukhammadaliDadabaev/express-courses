@@ -1,8 +1,19 @@
 const express = require('express')
 const path = require('path')
 const app = express()
+const books = require('./Books')
+const logger = require('./Middlewares/logger')
 
-// STATIC KOD
+// Middlewares
+// Logger middleware
+app.use(logger)
+
+// GET All json-books
+app.get('/api/books', (req, res) => {
+  res.json(books)
+})
+
+// Papkani STATIC qilish
 app.use(express.static(path.join(__dirname, 'public')))
 
 // // DINAMIK KOD
