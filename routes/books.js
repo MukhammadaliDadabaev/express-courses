@@ -41,4 +41,28 @@ router.post('/', (req, res) => {
   res.json(books)
 })
 
+// PUT Edit ById book
+router.put('/:id', (req, res) => {
+  const isExist = books.some(book => book.id === parseInt(req.params.id))
+  if (isExist) {
+    const updateBook = req.body
+    books.forEach(book => {
+      if (book.id === parseInt(req.params.id)) {
+        book.name = updateBook.name ? updateBook.name : book.name
+        book.author = updateBook.author ? updateBook.author : book.author
+        book.pages = updateBook.pages ? updateBook.pages : book.pages
+
+        res.status(200).json({
+          message: "Book ma`lumoti yangilandi...😎",
+          book
+        })
+      }
+    })
+  } else {
+    res.status(404).json({
+      message: `Siz qidirgan ${req.params.id} chi idlik book topilmadi.`
+    })
+  }
+})
+
 module.exports = router
