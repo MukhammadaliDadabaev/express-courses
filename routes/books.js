@@ -1,6 +1,7 @@
 const {
   Router
 } = require('express')
+const uuid = require('uuid')
 const router = Router()
 const books = require('../Books')
 
@@ -19,6 +20,25 @@ router.get('/:id', (req, res) => {
       message: `Siz qidirgan ${req.params.id} chi idlik book topilmadi.`
     })
   }
+})
+
+// POST new book ADD
+router.post('/', (req, res) => {
+  const newAddBook = {
+    id: uuid.v4(),
+    name: req.body.name,
+    author: req.body.author,
+    pages: req.body.pages
+  }
+  // VALIDATE
+  if (!req.body.name || !req.body.author || !req.body.pages) {
+    return res.status(400).json({
+      message: 'Ma\'lumotni kiriting...!'
+    })
+  }
+
+  books.push(newAddBook)
+  res.json(books)
 })
 
 module.exports = router

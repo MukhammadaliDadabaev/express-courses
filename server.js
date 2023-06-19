@@ -7,6 +7,10 @@ const app = express()
 // Logger middleware
 // app.use(logger)
 
+app.use(express.json())
+app.use(express.urlencoded({
+  extends: false
+}))
 // GET API Books endpoints
 app.use('/api/books', require('./routes/books'))
 
