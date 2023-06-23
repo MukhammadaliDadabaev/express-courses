@@ -65,4 +65,19 @@ router.put('/:id', (req, res) => {
   }
 })
 
+// DELETE ById book
+router.delete('/:id', (req, res) => {
+  const isExist = books.some(book => book.id === parseInt(req.params.id))
+  if (isExist) {
+    res.json({
+      message: "Kitob o`chirildi",
+      books: books.filter(book => book.id !== parseInt(req.params.id))
+    })
+  } else {
+    res.status(404).json({
+      message: `Siz qidirgan ${req.params.id} chi idlik book topilmadi.`
+    })
+  }
+})
+
 module.exports = router
